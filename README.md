@@ -27,11 +27,11 @@ This implementation will place all smaller numerical
 values before larger numerical values, regardless of
 leading zeroes.
 
-   1.txt
-   002.txt
+	1.txt
+	002.txt
 
 In the case that the numerical values are equal,
 leading zeroes will have priority.
 
-   001.txt
-   1.txt
+	001.txt
+	1.txt
