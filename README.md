@@ -4,7 +4,7 @@ humane-sort
 a more humane sort
 
 Sorts string characters according to ASCII value unless
-two digit substrings are in question, in which case
+digit substrings are in question, in which case
 the numbers will be evaluated numerically.
 
 	a1.txt
