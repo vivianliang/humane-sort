@@ -2,7 +2,7 @@
 #include <string.h>
 #include "humane_sort.h"
 
-#define NUM_STRCMP_TESTS 21
+#define NUM_STRCMP_TESTS 25
 #define NUM_SORT_TESTS 1
 
 typedef void (*test_ptr_t)(void);
@@ -29,13 +29,9 @@ typedef void (*test_ptr_t)(void);
  *      test11: a9.txt < a10.txt
  *      test12: a9abcd < a10
 
- *      test13: 0001 < 1      	If two number values are the same,
- *								leading zeroes will have priority.
- *
- *      test14: &1 < &001     	Same case as test13
- *
- *      test15: 001 < 2       	Another special case. When numbers evaluate
- *             					to different values, leading zeroes are ignored.
+ *      test13: 0001 < 1         Leading zeroes
+ *      test14: &1 < &001
+ *      test15: 001 < 2       	
  *      test16: 001ab < 2ab   
 
  *      test17: abc123 = abc123
@@ -43,10 +39,12 @@ typedef void (*test_ptr_t)(void);
  *
  *      test19: ab1 < abc1
  *
- *      test20: ab1 > ab&1      ASCII comparison will put ab1 > ab&1
- *                              Code has not been implemented to handle
- * 								this differently.
- *      
+ *      test20: ab1 > ab&1
+ *
+ *      test21: ABC2 > abc1     Ignore case
+ *      test22: 002 < 003
+ *      test23: 009 < 0020
+ *      test24: 00001000 < 001  Number of leading zeroes has priority
  */
 
 void test0(){
@@ -79,7 +77,7 @@ void test6(){
 }
 void test7(){
 	const char* str[] = {"B10", "a10"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
 void test8(){
 	const char* str[] = {"a1.txt", "a1txt"};
@@ -135,6 +133,23 @@ void test20(){
 	const char* str[] = {"ab1", "ab&1"};
 	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
+void test21(){
+	const char* str[] = {"ABC2", "abc1"};
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
+}
+void test22(){
+	const char* str[] = {"002", "003"};
+	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+}
+void test23(){
+	const char* str[] = {"009", "0020"};
+	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+}
+void test24(){
+	const char* str[] = {"00001000", "01"};
+	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+}
+
 
 void sort_test1(){
 	const char* list[] = {
@@ -151,6 +166,10 @@ void sort_test1(){
 		"bsdfsdf123233",
 		"A10",
 		"B1",
+		"a11",
+		"009",
+		"0011",
+		"B14",
 		"b13",
 		"!!##",
 		"0002.txt",
@@ -167,8 +186,8 @@ void sort_test1(){
 		"9.txt",
 		"10.txt"
 	};
-	humane_sort(list, 28);
-	print_strings(list, 28);
+	humane_sort(list, 32);
+	print_strings(list, 32);
 }
 
 int main(){
@@ -177,7 +196,7 @@ int main(){
 		                                         test5,  test6,  test7,  test8,  test9,
 												 test10, test11, test12, test13, test14, 
 												 test15, test16, test17, test18, test19,
-												 test20};
+												 test20, test21, test22, test23, test24};
 
 	//test_ptr_t sort_tests[NUM_SORT_TESTS] = {sort_test1};
 
@@ -187,6 +206,8 @@ int main(){
 		(*strcmp_tests[i])();
 	}
 
+	// Test humane_sort()
+	printf("\n");
 	sort_test1();
 
 	return 0;

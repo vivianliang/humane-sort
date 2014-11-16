@@ -1,21 +1,34 @@
 humane-sort
 ===========
 
-a more humane sort
+Sorts a list of strings from file or stdin in human-readable way
+instead of only by strict ASCII comparisons.
 
-Sorts a list of strings from file or stdin according to ASCII value unless
-digit substrings are in question, in which case the numbers will be evaluated
-numerically.
+For example:
 
 	a1.txt
 	a2.txt
+	...
 	a9.txt
 	a10.txt
-	a12.txt
+	a11.txt
+
+Rather than the generic ASCII sort which would result in:
+
+	a1.txt
+	a10.txt
+	a11.txt
+	a2.txt
+	...
+	a9.txt
+
+## Compilation
 
 To compile:
 
 	make all
+
+## Usage
 
 Read list of strings from file, sort, and print sorted list to stdout.
 Example:
@@ -33,8 +46,16 @@ Run development tests:
 
 	./test
 
----
-Some implementation notes/expected behavior:
+## Expected Humane Behavior:
+
+As described above, digit substrings will be sorted by decimal value
+rather than ASCII character.
+
+	a1.txt
+	a2.txt
+	a9.txt
+	a10.txt
+	a12.txt
 	
 Leading zeroes will be treated in the expected ASCII-like fashion,
 with priority given to the most leading zeroes.
@@ -44,7 +65,9 @@ they are evaluated by numerical value.
 	00002.txt
 	001.txt
 	002.txt
+	009.txt
 	0010.txt
+	0011.txt
 	1.txt
 	2.txt
 	9.txt
@@ -57,12 +80,11 @@ Symbols will appear before alphanumeric characters.
 	00002.txt
 	0002.txt
 
-This implementation will place all Uppercase letters
-before Lowercase letters. (Like the original ASCII sort.)
+Case is ignored:
 
-	A1.txt
+	a9.txt
+	A10.txt
+	a11.txt
 	B1.txt
-	C1.txt
-	a1.txt
-	b1.txt
-	c1.txt
+	b2.txt
+	B3.txt

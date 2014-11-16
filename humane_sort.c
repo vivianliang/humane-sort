@@ -44,8 +44,7 @@ unsigned long long num_leading_zeroes(const char* str){
  *                    value in str1 than in str2 
  */
 int humane_strcmp(const void *a, const void *b){
-	// NOTE: Because we need to pass this function to qsort(),
-	//       this function must take a (const char **).
+	
 	const char* str1 = *(const char **)a;
 	const char* str2 = *(const char **)b;
 	int i = 0;
@@ -97,12 +96,27 @@ int humane_strcmp(const void *a, const void *b){
 				}
 			// Compare ascii values for non-digits
 			} else {
-				if (*str1 < *str2){
+				
+				// Ignore case
+				char tmp1, tmp2;
+				if (isupper(*str1)){ 
+					tmp1 = (char)tolower(*str1);
+				} else {
+					tmp1 = *str1;
+				}
+				if (isupper(*str2)){ 
+					tmp2 = (char)tolower(*str2);
+				} else {
+					tmp2 = *str2;
+				}
+
+				if (tmp1 < tmp2){
 					return -1;
-				} else if(*str1 > *str2){
+				} else if(tmp1 > tmp2){
 					return 1;
 				} else {
-					return 0; // We should never get here
+					str1++;
+					str2++;
 				}
 			}
 		}
