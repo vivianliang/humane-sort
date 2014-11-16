@@ -45,10 +45,7 @@ int humane_strcmp(const void *a, const void *b){
 	char *next_char1;
 	char *next_char2;
 
-	// Make sure strings are of length 1 or more? what if we get a NULL?
 	while (1){
-		//printf("*str1: %c *str2: %c\n", *str1, *str2);
-		//printf("%c %c\n", *str1, *str2);
 		if (*str1 == *str2 && (!isdigit(*str1))){
 			if (*str1 == '\0'){	// The strings are equal
 				return 0;
@@ -73,13 +70,10 @@ int humane_strcmp(const void *a, const void *b){
 					// If we have 001 and 1, 001 will come first.
 					num_chars_in_num1 = next_char1 - str1;
 					num_chars_in_num2 = next_char2 - str2;
-					// str1 has more leading zeroes
 					if (num_chars_in_num1 > num_chars_in_num2){
 						return -1;
-					// str2 has more leading zeroes
 					} else if(num_chars_in_num2 > num_chars_in_num1){
 						return 1;
-
 					// The two numbers are completely equal (no leading zeroes)
 					// Continue traversing the string.
 					} else {
