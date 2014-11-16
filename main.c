@@ -49,9 +49,9 @@ int main(int argc, char *argv[]){
 		i++;
 	}
 
-	humane_sort((const char **)str_list, i);
+	humane_sort((const char **)str_list, i-1);
 
-	print_strings((const char **)str_list,i);
+	print_strings((const char **)str_list,i-1);
 	
 	// Free strings
 	for (j = 0;j<MAX_NUM_LINES;j++){
