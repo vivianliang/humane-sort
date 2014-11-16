@@ -112,11 +112,11 @@ void test14(){
 
 void test15(){
 	const char* str[] = {"002", "1"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
 }
 void test16(){
 	const char* str[] = {"002ab", "1ab"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
 }
 
 void test17(){
@@ -144,15 +144,31 @@ void sort_test1(){
 		"a10.txt",
 		"1.txt",
 		"001.txt",
+		"2",
+		"ab100",
+		"ab0100",
 		"a123.txt",
 		"bsdfsdf123233",
 		"A10",
 		"B1",
 		"b13",
-		"002"
+		"!!##",
+		"0002.txt",
+		"00032.txt",
+		"002",
+		"asdf123456790",
+		"asdf123456789",
+		"asdf12345660000",
+		"00002.txt",
+		"001.txt",
+		"002.txt",
+		"0010.txt",
+		"@#&^!@",
+		"9.txt",
+		"10.txt"
 	};
-	humane_sort(list, 12);
-	print_strings(list, 12);
+	humane_sort(list, 28);
+	print_strings(list, 28);
 }
 
 int main(){

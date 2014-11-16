@@ -3,6 +3,17 @@
 #include <ctype.h>
 #include "humane_sort.h"
 
+
+unsigned long long num_leading_zeroes(const char* str){
+	unsigned long long num_zeroes = 0;
+	int j=0;
+	while (str[j]=='0'){
+		num_zeroes++;
+		j++;
+	}
+	return num_zeroes;
+}
+
 /*
  * This function is intended to be used with qsort(). See IMPORTANT NOTE below.
  * 
@@ -57,29 +68,27 @@ int humane_strcmp(const void *a, const void *b){
 			if (*str1 == '\0') return -1;
 			if (*str2 == '\0') return 1;
 			if (isdigit(*str1) && isdigit(*str2)){
+				
+				//Handle leading zeroes
+				if (*str1 == '0' || *str2 == '0'){
+					if (num_leading_zeroes(str1) > num_leading_zeroes(str2)){
+						return -1;
+					} else if (num_leading_zeroes(str1) < num_leading_zeroes(str2)){
+						return 1;
+					}
+				}
+
 				num1 = strtoull (str1, &next_char1, 10);
 				num2 = strtoull (str2, &next_char2, 10);
+				
 				if (num1 < num2){
 					return -1;
 				} else if (num1 > num2){
 					return 1;
-				// The two numbers are equal, but may have leading zeroes
-				} else{
-					// We handle leading zeros for two equal numbers only.
-					// That is, 002 > 1 because it evaluates to 2 > 1.
-					// If we have 001 and 1, 001 will come first.
-					num_chars_in_num1 = next_char1 - str1;
-					num_chars_in_num2 = next_char2 - str2;
-					if (num_chars_in_num1 > num_chars_in_num2){
-						return -1;
-					} else if(num_chars_in_num2 > num_chars_in_num1){
-						return 1;
-					// The two numbers are completely equal (no leading zeroes)
-					// Continue traversing the string.
-					} else {
-						str1 = next_char1;
-						str2 = next_char2;
-					}
+				// The two numbers are equal. Continue traversing
+				} else{		
+					str1 = next_char1;
+					str2 = next_char2;
 				}
 			// Compare ascii values for non-digits
 			} else {

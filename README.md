@@ -34,10 +34,24 @@ Run development tests:
 	./test
 
 ---
-Some implementation notes:
+Some implementation notes/expected behavior:
 	
+Leading zeroes will be treated in the expected ASCII-like fashion,
+with priority given to the most leading zeroes.
+When there are two numbers with the same number of zeroes,
+they are evaluated by numerical value.
+
+	00002.txt
+	001.txt
+	002.txt
+	0010.txt
+	1.txt
+	2.txt
+	9.txt
+	10.txt
+
 This implementation will place all Uppercase letters
-before Lowercase letters.
+before Lowercase letters. (Like the original ASCII sort.)
 
 	A1.txt
 	B1.txt
@@ -46,15 +60,13 @@ before Lowercase letters.
 	b1.txt
 	c1.txt
 
-This implementation will place all smaller numerical
-values before larger numerical values, regardless of
-leading zeroes.
+Symbols are evaluated by ASCII value, so they may
+appear in between numbers and alphabets. This seems pretty
+unintuitive, so this is a good thing to change in the future.
 
-	1.txt
-	002.txt
-
-In the case that the numerical values are equal,
-leading zeroes will have priority.
-
-	001.txt
-	1.txt
+	!!##
+	00002.txt
+	0002.txt
+	10.txt
+	@#&^!@
+	A10
