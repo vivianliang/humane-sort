@@ -50,6 +50,13 @@ they are evaluated by numerical value.
 	9.txt
 	10.txt
 
+Symbols will appear before alphanumeric characters.
+
+	!!##
+	@#&^!@
+	00002.txt
+	0002.txt
+
 This implementation will place all Uppercase letters
 before Lowercase letters. (Like the original ASCII sort.)
 
@@ -59,14 +66,3 @@ before Lowercase letters. (Like the original ASCII sort.)
 	a1.txt
 	b1.txt
 	c1.txt
-
-Symbols are evaluated by ASCII value, so they may
-appear in between numbers and alphabets. This seems pretty
-unintuitive, so this is a good thing to change in the future.
-
-	!!##
-	00002.txt
-	0002.txt
-	10.txt
-	@#&^!@
-	A10

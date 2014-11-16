@@ -63,7 +63,7 @@ void test2(){
 }
 void test3(){
 	const char* str[] = {"ABC", "[]"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
 void test4(){
 	const char* str[] = {"[]", "abc"};

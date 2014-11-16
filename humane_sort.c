@@ -67,6 +67,11 @@ int humane_strcmp(const void *a, const void *b){
 		} else{
 			if (*str1 == '\0') return -1;
 			if (*str2 == '\0') return 1;
+
+			// All symbols should be before alphanumeric characters
+			if (!isalnum(*str1) && isalnum(*str2)) return -1;
+			if (isalnum(*str1) && !isalnum(*str2)) return 1;
+
 			if (isdigit(*str1) && isdigit(*str2)){
 				
 				//Handle leading zeroes
@@ -80,7 +85,7 @@ int humane_strcmp(const void *a, const void *b){
 
 				num1 = strtoull (str1, &next_char1, 10);
 				num2 = strtoull (str2, &next_char2, 10);
-				
+
 				if (num1 < num2){
 					return -1;
 				} else if (num1 > num2){
