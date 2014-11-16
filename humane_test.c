@@ -2,7 +2,7 @@
 #include <string.h>
 #include "humane_sort.h"
 
-#define NUM_STRCMP_TESTS 25
+#define NUM_STRCMP_TESTS 26
 #define NUM_SORT_TESTS 1
 
 typedef void (*test_ptr_t)(void);
@@ -28,23 +28,19 @@ typedef void (*test_ptr_t)(void);
  *      test10: a1.txt < a10.txt
  *      test11: a9.txt < a10.txt
  *      test12: a9abcd < a10
-
  *      test13: 0001 < 1         Leading zeroes
  *      test14: &1 < &001
  *      test15: 001 < 2       	
  *      test16: 001ab < 2ab   
-
  *      test17: abc123 = abc123
  *      test18: abc2 > abc001 
- *
  *      test19: ab1 < abc1
- *
  *      test20: ab1 > ab&1
- *
  *      test21: ABC2 > abc1     Ignore case
  *      test22: 002 < 003
  *      test23: 009 < 0020
- *      test24: 00001000 < 001  Number of leading zeroes has priority
+ *      test24: 00001000 > 001
+ *      test25: 002 > 1
  */
 
 void test0(){
@@ -110,11 +106,11 @@ void test14(){
 
 void test15(){
 	const char* str[] = {"002", "1"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
 void test16(){
 	const char* str[] = {"002ab", "1ab"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
 
 void test17(){
@@ -147,9 +143,12 @@ void test23(){
 }
 void test24(){
 	const char* str[] = {"00001000", "01"};
-	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
-
+void test25(){
+	const char* str[] = {"002", "1"};
+	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
+}
 
 void sort_test1(){
 	const char* list[] = {
@@ -184,19 +183,21 @@ void sort_test1(){
 		"0010.txt",
 		"@#&^!@",
 		"9.txt",
-		"10.txt"
+		"10.txt",
+		"002000"
 	};
-	humane_sort(list, 32);
-	print_strings(list, 32);
+	humane_sort(list, 33);
+	print_strings(list, 33);
 }
 
 int main(){
 	int i;
 	test_ptr_t strcmp_tests[NUM_STRCMP_TESTS] = {test0,  test1,  test2,  test3,  test4,  
-		                                         test5,  test6,  test7,  test8,  test9,
+												 test5,  test6,  test7,  test8,  test9,
 												 test10, test11, test12, test13, test14, 
 												 test15, test16, test17, test18, test19,
-												 test20, test21, test22, test23, test24};
+												 test20, test21, test22, test23, test24,
+												 test25};
 
 	//test_ptr_t sort_tests[NUM_SORT_TESTS] = {sort_test1};
 

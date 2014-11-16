@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "humane_sort.h"
 
-#define MAX_LINE_LENGTH	50
-#define MAX_NUM_LINES	100
+#define MAX_LINE_LENGTH	100
+#define MAX_NUM_LINES	300
 
 /* 
  * Usage: humane_sort file.txt
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]){
 		FILE * fp;
 		fp = fopen(argv[1],"r");
 		if (fp == NULL){
-			fprintf(stderr,"error opening file");
+			fprintf(stderr,"Error opening file.");
 			fclose(fp);
 			exit(1);
 		}
