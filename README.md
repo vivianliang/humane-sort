@@ -19,10 +19,12 @@ To compile:
 
 Read list of strings from file, sort, and print sorted list to stdout.
 Example:
+
 	./humane_sort file.txt
 
 Read list of strings from stdin, sort, and print sorted list to stdout.
 Examples:
+
 	./humane_sort < file.txt
 	cat file.txt | ./humane_sort
 	ls | ./humane_sort
