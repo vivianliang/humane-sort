@@ -2,7 +2,7 @@
 #include <string.h>
 #include "humane_sort.h"
 
-#define NUM_STRCMP_TESTS 26
+#define NUM_STRCMP_TESTS 27
 #define NUM_SORT_TESTS 1
 
 typedef void (*test_ptr_t)(void);
@@ -41,6 +41,7 @@ typedef void (*test_ptr_t)(void);
  *      test23: 009 < 0020
  *      test24: 00001000 > 001
  *      test25: 002 > 1
+ *      test26: hello world 9 < hello world 10
  */
 
 void test0(){
@@ -149,6 +150,10 @@ void test25(){
 	const char* str[] = {"002", "1"};
 	printf("*%s*\n", (humane_strcmp(str, str+1) > 0) ? "PASS":"FAIL");
 }
+void test26(){
+	const char* str[] = {"hello world 9", "hello world 10"};
+	printf("*%s*\n", (humane_strcmp(str, str+1) < 0) ? "PASS":"FAIL");
+}
 
 void sort_test1(){
 	const char* list[] = {
@@ -197,7 +202,7 @@ int main(){
 												 test10, test11, test12, test13, test14, 
 												 test15, test16, test17, test18, test19,
 												 test20, test21, test22, test23, test24,
-												 test25};
+												 test25, test26};
 
 	//test_ptr_t sort_tests[NUM_SORT_TESTS] = {sort_test1};
 

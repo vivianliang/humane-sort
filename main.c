@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "humane_sort.h"
 
 #define MAX_LINE_LENGTH	100
@@ -16,6 +17,7 @@ int main(int argc, char *argv[]){
 	int j = 0;
 	int read_from_file = 0;
 	char** str_list = NULL;
+	FILE * fp;
 
 	// Allocate space for strings
 	str_list =  (char**)malloc(sizeof(char*) * MAX_NUM_LINES);
@@ -27,41 +29,36 @@ int main(int argc, char *argv[]){
 		str_list[j] = (char*)malloc(sizeof(char)*(MAX_LINE_LENGTH+1));
 	}
 	
-	// If a filename is specified, read strings file
+	// Read from file if given, otherwise read from stdin
 	if (argv[1]){
-		FILE * fp;
 		fp = fopen(argv[1],"r");
 		if (fp == NULL){
 			fprintf(stderr,"Error opening file.");
 			fclose(fp);
 			exit(1);
 		}
-		while (i < MAX_NUM_LINES){
-			if (fscanf(fp, "%s", str_list[i]) == EOF){
-				break;
-			}
-			i++;
-		}
-		fclose(fp);
-	// Otherwise, read strings from stdin
 	} else {
-		while (i < MAX_NUM_LINES){
-			if (scanf("%s", str_list[i]) == EOF){
-				break;
-			}
-			i++;
-		}
+		fp = stdin;
+	}
+
+	while (i < MAX_NUM_LINES && !feof(fp)){
+		fgets(str_list[i], MAX_LINE_LENGTH, fp);
+		// Replace newline with null terminator
+		char *nl = strchr(str_list[i],'\n');
+		if (nl) *nl = '\0';
+		i++;
 	}
 
 	humane_sort((const char **)str_list, i);
 
 	print_strings((const char **)str_list,i);
-
+	
 	// Free strings
 	for (j = 0;j<MAX_NUM_LINES;j++){
 		free(str_list[j]);
 	}
 	free(str_list);
 	
+	fclose(fp);
 	return 0;
 }
