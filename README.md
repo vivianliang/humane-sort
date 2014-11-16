@@ -88,6 +88,6 @@ Case is ignored:
 
 ### Constraints
 
-#define MAX_LINE_LENGTH	100 (Adjustable in main.c)
-#define MAX_NUM_LINES	300 (Adjustable in main.c)
-Integer substrings within string lines cannot exceed 18446744073709551615 (26^4-1)
+* Maximum line length:	 100 (Adjustable in main.c)
+* Maximum number of lines: 300 (Adjustable in main.c)
+* Integer substrings within string lines cannot exceed 18446744073709551615 (26^4-1)
