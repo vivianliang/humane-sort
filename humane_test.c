@@ -152,7 +152,7 @@ void sort_test1(){
 		"002"
 	};
 	humane_sort(list, 12);
-	print_sorted_strings(list, 12);
+	print_strings(list, 12);
 }
 
 int main(){

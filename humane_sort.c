@@ -106,7 +106,7 @@ void humane_sort(const char** str_list, unsigned long long num_elements){
 	qsort(str_list,num_elements, sizeof(str_list[0]), humane_strcmp);
 }
 
-void print_sorted_strings(const char** str_list, unsigned long long num_elements){
+void print_strings(const char** str_list, unsigned long long num_elements){
 	int i;
 	for (i = 0;i <num_elements;i++){
 		printf("%s\n", str_list[i]);

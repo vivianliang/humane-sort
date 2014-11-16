@@ -35,3 +35,16 @@ leading zeroes will have priority.
 
 	001.txt
 	1.txt
+
+To compile:
+
+	make all
+
+Sort a text file (to stdout):
+
+	./humane_sort file.txt
+
+Run tests
+
+	./test
+	
