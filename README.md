@@ -90,4 +90,4 @@ Case is ignored:
 
 * Maximum line length:	 100 (Adjustable in main.c)
 * Maximum number of lines: 300 (Adjustable in main.c)
-* Integer substrings within string lines cannot exceed 18446744073709551615 (26^4-1)
+* Integer substrings within string lines cannot exceed 18446744073709551615 (2^64-1)
